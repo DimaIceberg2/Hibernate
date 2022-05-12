@@ -2,6 +2,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import java.util.Arrays;
+
 public class MainApp {
     public static void main(String[] args) {
         SessionFactory sessionFactory = new Configuration()
@@ -15,8 +17,10 @@ public class MainApp {
         session = sessionFactory.getCurrentSession();
         session.beginTransaction();
 
-        Book book = new Book("Book#1");
-        session.save(book);
+        User user = new User("Author#1");
+        Book book = new Book("Book#1", user);
+        user.setBooksList(Arrays.asList(book));
+        session.save(user);
 
         session.getTransaction().commit();
 
